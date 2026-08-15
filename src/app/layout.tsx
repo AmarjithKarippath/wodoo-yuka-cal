@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Allura, Montserrat, Pacifico, Poppins } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
@@ -30,8 +30,15 @@ const pacifico = Pacifico({
   weight: "400",
 });
 
+export const viewport: Viewport = {
+  themeColor: "#ffffff",
+  width: "device-width",
+  initialScale: 1,
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
+  applicationName: site.name,
   title: {
     default: `${site.name} - ${site.tagline}`,
     template: `%s | ${site.name}`,
@@ -46,8 +53,9 @@ export const metadata: Metadata = {
     "ingredient checker",
     "nutrition app",
   ],
-  authors: [{ name: "Wodoo" }],
+  authors: [{ name: "Wodoo", url: site.url }],
   creator: "Wodoo",
+  publisher: "Wodoo",
   robots: {
     index: true,
     follow: true,
@@ -59,6 +67,14 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
+  icons: {
+    icon: [
+      { url: "/icon/32", sizes: "32x32", type: "image/png" },
+      { url: "/icon/192", sizes: "192x192", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-icon", sizes: "180x180", type: "image/png" }],
+  },
+  manifest: "/manifest.webmanifest",
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -66,11 +82,20 @@ export const metadata: Metadata = {
     siteName: site.name,
     title: `${site.name} - ${site.tagline}`,
     description: site.description,
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: `${site.name} — ${site.tagline}`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: `${site.name} - ${site.tagline}`,
     description: site.description,
+    images: ["/twitter-image"],
   },
   alternates: {
     canonical: "/",

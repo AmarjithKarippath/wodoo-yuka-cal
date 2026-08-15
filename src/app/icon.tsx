@@ -1,32 +1,22 @@
 import { ImageResponse } from "next/og";
+import { CarrotMark, IconFrame } from "@/lib/brand-art";
 
-export const size = { width: 32, height: 32 };
-export const contentType = "image/png";
+export function generateImageMetadata() {
+  return [
+    { contentType: "image/png", size: { width: 32, height: 32 }, id: "32" },
+    { contentType: "image/png", size: { width: 192, height: 192 }, id: "192" },
+  ];
+}
 
-export default function Icon() {
+export default async function Icon({ id }: { id: Promise<string> }) {
+  const resolvedId = await id;
+  const size = resolvedId === "192" ? 192 : 32;
   return new ImageResponse(
     (
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          background: "#fff",
-          borderRadius: 8,
-        }}
-      >
-        <div
-          style={{
-            width: 22,
-            height: 26,
-            background: "#ff8a1f",
-            borderRadius: "11px 11px 12px 12px",
-          }}
-        />
-      </div>
+      <IconFrame size={size}>
+        <CarrotMark size={size} />
+      </IconFrame>
     ),
-    size,
+    { width: size, height: size },
   );
 }

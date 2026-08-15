@@ -10,7 +10,7 @@ export function JsonLd() {
         name: site.name,
         url: site.url,
         description: site.description,
-        logo: `${site.url}/icon`,
+        logo: `${site.url}/apple-icon`,
         sameAs: [],
       },
       {
