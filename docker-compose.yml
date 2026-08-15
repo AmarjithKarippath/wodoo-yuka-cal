@@ -6,10 +6,26 @@ services:
       POSTGRES_USER: wodoo
       POSTGRES_PASSWORD: wodoo
       POSTGRES_DB: wodoo
-    ports:
-      - "5433:5432"
     volumes:
       - wodoo-pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U wodoo -d wodoo"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-3015}:3015"
+    environment:
+      DATABASE_URL: postgres://wodoo:wodoo@db:5432/wodoo
+      ADMIN_USERNAME: ${ADMIN_USERNAME:-admin}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-changeme}
+    depends_on:
+      db:
+        condition: service_healthy
 
 volumes:
   wodoo-pg:
