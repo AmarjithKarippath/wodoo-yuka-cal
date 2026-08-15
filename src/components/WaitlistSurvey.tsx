@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { useEffect, useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 import {
   CONFIDENCE_MESSAGE,
   CONFIDENCE_OPTIONS,
@@ -52,8 +53,15 @@ export function WaitlistSurvey({ userId, onClose }: Props) {
   useEffect(() => {
     const previous = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    const videos = Array.from(document.querySelectorAll("video"));
+    videos.forEach((video) => video.pause());
     return () => {
       document.body.style.overflow = previous;
+      videos.forEach((video) => {
+        video.play().catch(() => {
+          /* Autoplay can be blocked until the next user gesture. */
+        });
+      });
     };
   }, []);
 
@@ -176,8 +184,8 @@ export function WaitlistSurvey({ userId, onClose }: Props) {
     });
   }
 
-  return (
-    <div className="fixed inset-0 z-[80] flex items-end sm:items-center justify-center bg-black/40 p-0 sm:p-6">
+  return createPortal(
+    <div className="fixed inset-0 z-[200] flex items-end sm:items-center justify-center bg-black/40 p-0 sm:p-6 isolate">
       <div className="flex max-h-[92vh] w-full max-w-[560px] flex-col overflow-hidden rounded-t-3xl sm:rounded-3xl bg-white shadow-2xl">
         <div className="flex items-center justify-between px-5 pt-4 pb-2">
           <p className="text-sm font-medium text-[#8a8581]">
@@ -369,7 +377,8 @@ export function WaitlistSurvey({ userId, onClose }: Props) {
           {error ? <p className="mt-3 text-sm text-wakka-red">{error}</p> : null}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
 

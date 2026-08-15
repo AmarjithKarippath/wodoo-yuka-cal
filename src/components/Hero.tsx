@@ -23,7 +23,7 @@ export function Hero() {
         <div className="relative mx-auto w-full max-w-full overflow-hidden">
           <BlobHero className="pointer-events-none absolute left-[-6%] top-2 h-[96%] w-[108%]" />
           <div className="relative z-10 flex items-end justify-center gap-2 pt-4 min-[400px]:gap-4 md:gap-8 md:pt-4">
-            <div className="relative z-20 shrink-0">
+            <div className="relative z-0 shrink-0">
               <PhoneMockup />
             </div>
             <CarrotMascot className="relative z-10 mb-6 w-[56px] shrink-0 min-[400px]:w-[72px] md:mb-14 md:w-[168px]" />
