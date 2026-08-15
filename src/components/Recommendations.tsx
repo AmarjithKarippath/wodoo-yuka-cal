@@ -8,27 +8,27 @@ const pairs = [
   [
     {
       name: "Tortilla chips",
-      image: "/images/chips-poor.jpg",
+      image: "/images/tortilla-chips.png",
       status: "Poor",
       tone: "bad" as const,
     },
     {
       name: "Crispy tortilla",
-      image: "/images/chips-good.jpg",
+      image: "/images/crispy-tortilla.png",
       status: "Excellent",
       tone: "good" as const,
     },
   ],
   [
     {
-      name: "Lip balm",
-      image: "/images/lipbalm-poor.jpg",
+      name: "Chemical Handwash",
+      image: "/images/chemical-handwash.png",
       status: "Bad",
       tone: "worse" as const,
     },
     {
-      name: "Plant balm",
-      image: "/images/lipbalm-good.jpg",
+      name: "Organic Handwash",
+      image: "/images/organic-handwash.png",
       status: "Excellent",
       tone: "good" as const,
     },
@@ -39,16 +39,22 @@ export function Recommendations() {
   const [slide, setSlide] = useState(0);
 
   return (
-    <section className="relative py-16 overflow-hidden">
-      <div className="absolute inset-x-0 top-0 hidden md:block h-24 bg-gradient-to-b from-white to-wakka-blue/40" />
-      <div className="page-wrap relative z-10">
-        <h2 className="title-2 text-center">
+    <section className="relative py-12 md:py-28 overflow-hidden">
+      <div className="absolute inset-x-0 top-0 hidden md:block h-32 bg-gradient-to-b from-white to-wakka-blue/40" />
+      <div className="relative z-10 mx-auto w-full max-w-[1280px] px-5">
+        <h2 className="title-2 text-center md:!text-[46px] md:!leading-[54px]">
           Get recommendations
           <br />
           for healthier products
         </h2>
+        <p className="mx-auto mt-6 max-w-[640px] text-center text-[16px] leading-7 text-wakka-muted lg:text-[20px]">
+          Find a better choice for your family.
+          <br />
+          Compare ingredients, nutrition, and product quality, then discover alternatives that may
+          be a safer or more suitable option.
+        </p>
 
-        <div className="md:hidden pt-8">
+        <div className="md:hidden pt-10">
           <Pair pair={pairs[slide]} />
           <div className="flex justify-center gap-2 mt-6">
             {pairs.map((_, i) => (
@@ -62,7 +68,7 @@ export function Recommendations() {
           </div>
         </div>
 
-        <div className="hidden md:block pt-10 space-y-16">
+        <div className="hidden md:block pt-16 space-y-24">
           {pairs.map((pair) => (
             <Pair key={pair[0].name} pair={pair} />
           ))}
@@ -78,9 +84,9 @@ function Pair({
   pair: { name: string; image: string; status: string; tone: "bad" | "worse" | "good" }[];
 }) {
   return (
-    <div className="flex justify-around items-center my-8">
+    <div className="flex justify-center items-center gap-2 md:gap-14 my-6 md:my-10">
       <ProductCard product={pair[0]} rotate="left" />
-      <div className="px-2">
+      <div className="px-1 scale-90 md:scale-150 md:px-2">
         <ArrowRight />
       </div>
       <ProductCard product={pair[1]} rotate="right" />
@@ -104,9 +110,9 @@ function ProductCard({
         <Image
           src={product.image}
           alt={product.name}
-          width={140}
-          height={140}
-          className="mx-auto h-[120px] w-[120px] object-cover rounded-xl"
+          width={520}
+          height={520}
+          className="mx-auto h-[110px] w-[96px] md:h-[320px] md:w-[280px] object-contain"
         />
         <div className="name">{product.name}</div>
         <div className={`status ${product.tone}`}>

@@ -29,10 +29,10 @@ export default function OpenGraphImage() {
               borderRadius: "28px 28px 30px 30px",
             }}
           />
-          <div style={{ fontSize: 56, fontWeight: 700 }}>Wakka</div>
+          <div style={{ fontSize: 56, fontWeight: 700 }}>Wodoo</div>
         </div>
         <div style={{ fontSize: 54, fontWeight: 600, lineHeight: 1.15, maxWidth: 900 }}>
-          Make the right choices for your health
+          Wodoo: Scan it before you buy it.
         </div>
         <div style={{ fontSize: 28, marginTop: 24, color: "#5c5759", maxWidth: 820 }}>
           Scan food and cosmetics to understand their impact on your health.

@@ -2,23 +2,12 @@ import type { MetadataRoute } from "next";
 import { site } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = [
-    "",
-    "/app",
-    "/team",
-    "/independence",
-    "/blog",
-    "/premium",
-    "/contact",
-    "/press",
-    "/social-impact",
-    "/legal",
+  return [
+    {
+      url: `${site.url}/`,
+      lastModified: new Date("2026-08-15"),
+      changeFrequency: "weekly",
+      priority: 1,
+    },
   ];
-
-  return routes.map((route) => ({
-    url: `${site.url}${route}`,
-    lastModified: new Date(),
-    changeFrequency: route === "" ? "weekly" : "monthly",
-    priority: route === "" ? 1 : 0.7,
-  }));
 }

@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import { Allura, Barlow_Condensed, Montserrat, Pacifico, Poppins } from "next/font/google";
+import { Allura, Montserrat, Pacifico, Poppins } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { JsonLd } from "@/components/JsonLd";
-import { MobileDownloadBar } from "@/components/MobileDownloadBar";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -31,12 +30,6 @@ const pacifico = Pacifico({
   weight: "400",
 });
 
-const barlow = Barlow_Condensed({
-  variable: "--font-counter",
-  subsets: ["latin"],
-  weight: ["500", "600"],
-});
-
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
@@ -45,7 +38,7 @@ export const metadata: Metadata = {
   },
   description: site.description,
   keywords: [
-    "Wakka",
+    "Wodoo",
     "food scanner",
     "cosmetic scanner",
     "barcode scanner",
@@ -53,8 +46,8 @@ export const metadata: Metadata = {
     "ingredient checker",
     "nutrition app",
   ],
-  authors: [{ name: "Wakka" }],
-  creator: "Wakka",
+  authors: [{ name: "Wodoo" }],
+  creator: "Wodoo",
   robots: {
     index: true,
     follow: true,
@@ -89,14 +82,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${poppins.variable} ${montserrat.variable} ${allura.variable} ${pacifico.variable} ${barlow.variable} h-full antialiased`}
+      className={`${poppins.variable} ${montserrat.variable} ${allura.variable} ${pacifico.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-white text-wakka-ink">
         <JsonLd />
         <Header />
-        <main className="flex-1 pb-20 lg:pb-0">{children}</main>
+        <main className="flex-1">{children}</main>
         <Footer />
-        <MobileDownloadBar />
       </body>
     </html>
   );

@@ -25,9 +25,16 @@ export function BlobHero({ className = "" }: { className?: string }) {
   );
 }
 
+const BARCODE_BARS = [2.2, 1, 1.4, 2.6, 1, 2, 1, 2.8, 1.4, 1, 2.2, 1, 1.6, 2.4, 1, 1.8, 2.6, 1, 1.4, 1, 2.4, 1.6, 1, 2, 1, 2.2, 1.4, 1, 1.8];
+const BARCODE_MARKS = BARCODE_BARS.reduce<{ x: number; width: number }[]>((marks, width, index) => {
+  const x = 10 + BARCODE_BARS.slice(0, index).reduce((sum, value) => sum + value, 0);
+  if (index % 2 === 0) marks.push({ x, width });
+  return marks;
+}, []);
+
 export function CarrotMascot({ className = "" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 180 280" className={className} aria-hidden="true">
+    <svg viewBox="0 0 200 280" className={className} aria-hidden="true">
       <ellipse cx="118" cy="248" rx="28" ry="8" fill="#e6e1db" />
       <path d="M78 70c40 28 58 78 50 128-6 36-34 58-58 58s-52-22-58-58C4 148 22 98 62 70z" fill="#ff8a1f" />
       <path d="M78 82c30 22 44 66 38 108-4 28-24 46-38 46" fill="#ff9d3d" />
@@ -37,23 +44,30 @@ export function CarrotMascot({ className = "" }: { className?: string }) {
       <circle cx="58" cy="148" r="6" fill="#302c2e" />
       <circle cx="90" cy="148" r="6" fill="#302c2e" />
       <path d="M62 168c8 8 18 8 26 0" fill="none" stroke="#302c2e" strokeWidth="3" strokeLinecap="round" />
-      <path d="M40 188c-18 10-28 34-16 42 10 6 22-8 28-22" fill="none" stroke="#302c2e" strokeWidth="3.5" strokeLinecap="round" />
-      <path d="M108 190c22 4 42 24 36 40-6 12-24 4-34-10" fill="none" stroke="#302c2e" strokeWidth="3.5" strokeLinecap="round" />
-      <path d="M118 198h46l8 38H126z" fill="#cfd6dc" />
-      <path d="M126 198v38" stroke="#b4bcc3" strokeWidth="2" />
-      <path d="M141 198v38" stroke="#b4bcc3" strokeWidth="2" />
-      <ellipse cx="141" cy="198" rx="24" ry="7" fill="#dfe4e8" />
-    </svg>
-  );
-}
-
-export function CloudSmall({ className = "", fill = "#EDF8FB" }: { className?: string; fill?: string }) {
-  return (
-    <svg viewBox="0 0 640 280" className={className} aria-hidden="true">
       <path
-        fill={fill}
-        d="M40 160c20-70 90-120 180-110 50 6 80 30 120 20 70-16 120 30 170 20 80-16 140 40 110 100-20 40-80 50-160 46-70-4-90 16-160 10S20 220 40 160z"
+        d="M40 188c-18 10-28 34-16 42 10 6 22-8 28-22"
+        fill="none"
+        stroke="#302c2e"
+        strokeWidth="3.5"
+        strokeLinecap="round"
       />
+      <g transform="translate(110 2) rotate(12 40 220)">
+        <rect x="4" y="196" width="72" height="48" rx="4" fill="#fff" stroke="#302c2e" strokeWidth="1.8" />
+        {BARCODE_MARKS.map((bar) => (
+          <rect key={bar.x} x={bar.x} y={202} width={bar.width} height={28} fill="#1a1a1a" />
+        ))}
+        <text x="40" y="239" textAnchor="middle" fill="#1a1a1a" fontSize="6" fontFamily="ui-monospace, monospace">
+          4 82910 37415
+        </text>
+      </g>
+      <path
+        d="M108 190c22 4 38 22 40 38"
+        fill="none"
+        stroke="#302c2e"
+        strokeWidth="3.5"
+        strokeLinecap="round"
+      />
+      <ellipse cx="152" cy="230" rx="7" ry="5" fill="#ff8a1f" transform="rotate(18 152 230)" />
     </svg>
   );
 }
@@ -109,9 +123,10 @@ export function IconAdditives() {
   return (
     <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true">
       <circle cx="14" cy="14" r="12" fill="#f3c7a8" />
-      <path d="M10 18c2 2 6 2 8 0" stroke="#302c2e" strokeWidth="1.6" fill="none" strokeLinecap="round" />
-      <circle cx="10" cy="12" r="1.4" fill="#302c2e" />
-      <circle cx="18" cy="12" r="1.4" fill="#302c2e" />
+      <path d="M8.5 9.2l4 1.6M19.5 9.2l-4 1.6" stroke="#302c2e" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+      <circle cx="10" cy="12.5" r="1.4" fill="#302c2e" />
+      <circle cx="18" cy="12.5" r="1.4" fill="#302c2e" />
+      <path d="M10 20.2c2-2.6 6-2.6 8 0" stroke="#302c2e" strokeWidth="1.6" fill="none" strokeLinecap="round" />
     </svg>
   );
 }
@@ -129,33 +144,6 @@ export function IconCalories() {
   return (
     <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true">
       <path d="M14 5c6 7 9 11 9 16a9 9 0 1 1-18 0c0-5 3-9 9-16z" fill="#ffb03a" />
-    </svg>
-  );
-}
-
-export function IconFlask() {
-  return (
-    <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true">
-      <path d="M11 4h6v8l5 10a4 4 0 0 1-4 6H10a4 4 0 0 1-4-6l5-10V4z" fill="#7ad13f" />
-      <circle cx="14" cy="18" r="2" fill="#fff" />
-    </svg>
-  );
-}
-
-export function IconIrritant() {
-  return (
-    <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true">
-      <circle cx="14" cy="14" r="10" fill="#ffb03a" />
-      <path d="M14 8v7" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" />
-      <circle cx="14" cy="19" r="1.4" fill="#fff" />
-    </svg>
-  );
-}
-
-export function IconAllergen() {
-  return (
-    <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true">
-      <path d="M14 5l2 7h7l-6 4 2 7-7-4-7 4 2-7-6-4h7z" fill="#ff8a1f" />
     </svg>
   );
 }
@@ -183,50 +171,6 @@ export function ArrowRight() {
     <svg width="56" height="28" viewBox="0 0 56 28" aria-hidden="true">
       <path d="M4 14h40" stroke="#302c2e" strokeWidth="2.4" strokeLinecap="round" />
       <path d="M36 6l12 8-12 8" fill="none" stroke="#302c2e" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-export function QuoteMark({ end = false }: { end?: boolean }) {
-  return (
-    <svg
-      width="22"
-      height="18"
-      viewBox="0 0 22 18"
-      className={`inline-block mx-1 align-middle ${end ? "rotate-180" : ""}`}
-      aria-hidden="true"
-    >
-      <path fill="#00db5f" d="M0 18V8C0 3 3 0 8 0h2v5H8c-2 0-3 1-3 3v10H0zm12 0V8c0-5 3-8 8-8h2v5h-2c-2 0-3 1-3 3v10h-5z" />
-    </svg>
-  );
-}
-
-export function Star({ half = false }: { half?: boolean }) {
-  return (
-    <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true">
-      <defs>
-        {half ? (
-          <linearGradient id="half">
-            <stop offset="50%" stopColor="#ffc107" />
-            <stop offset="50%" stopColor="#e6e1db" />
-          </linearGradient>
-        ) : null}
-      </defs>
-      <path
-        fill={half ? "url(#half)" : "#ffc107"}
-        d="M14 2l3.2 7.4 8 0.8-6 5.4 1.7 7.8L14 19.6 7.1 23.4 8.8 15.6 2.8 10.2l8-0.8z"
-      />
-    </svg>
-  );
-}
-
-export function Plants({ className = "" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 120 160" className={className} aria-hidden="true">
-      <path d="M60 160V70" stroke="#2bb24a" strokeWidth="3" />
-      <path d="M60 110c-24-10-34-34-28-54 18 8 28 24 28 40z" fill="#7ad13f" />
-      <path d="M60 96c24-8 36-30 30-50-18 8-28 22-30 40z" fill="#2bb24a" />
-      <path d="M60 80c-16-18-14-40 2-52 4 18 6 34-2 52z" fill="#37c55a" />
     </svg>
   );
 }

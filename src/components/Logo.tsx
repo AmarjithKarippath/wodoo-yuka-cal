@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export function Logo({ className = "" }: { className?: string }) {
   return (
-    <Link href="/" className={`inline-flex items-center gap-2 ${className}`} aria-label="Wakka home">
+    <Link href="/" className={`inline-flex items-center gap-2 ${className}`} aria-label="Wodoo home">
       <svg width="34" height="34" viewBox="0 0 64 64" aria-hidden="true">
         <ellipse cx="32" cy="58" rx="10" ry="3" fill="#e8e4df" />
         <path
@@ -20,8 +20,8 @@ export function Logo({ className = "" }: { className?: string }) {
         <circle cx="38" cy="36" r="2.1" fill="#302c2e" />
         <path d="M28 43c2.4 2.4 5.6 2.4 8 0" fill="none" stroke="#302c2e" strokeWidth="1.8" strokeLinecap="round" />
       </svg>
-      <span className="font-[family-name:var(--font-logo)] text-[32px] leading-none text-wakka-ink tracking-tight">
-        Wakka
+      <span className="font-[family-name:var(--font-logo)] text-[28px] leading-none text-wakka-ink tracking-tight md:text-[32px]">
+        Wodoo
       </span>
     </Link>
   );

@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: wodoo
+      POSTGRES_PASSWORD: wodoo
+      POSTGRES_DB: wodoo
+    ports:
+      - "5432:5432"
+    volumes:
+      - wodoo-pg:/var/lib/postgresql/data
+
+volumes:
+  wodoo-pg:

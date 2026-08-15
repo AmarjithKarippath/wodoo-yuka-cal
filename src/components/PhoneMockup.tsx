@@ -31,7 +31,7 @@ export function PhoneMockup() {
           loop
           playsInline
           preload="auto"
-          aria-label="Wakka app preview"
+          aria-label="Wodoo app preview"
         />
       </div>
     </div>
