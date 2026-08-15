@@ -1,6 +1,21 @@
 .PHONY: help install db-up db-down dev build start prod lint clean
 
+SHELL := /bin/bash
 PORT ?= 3015
+NVM_DIR ?= $(HOME)/.nvm
+
+# Make does not load nvm/fnm. Source them in recipes, or pass NPM=/path/to/npm.
+define WITH_NODE
+set -euo pipefail; \
+if [ -n "$(NPM)" ]; then export PATH="$$(dirname "$(NPM)"):$$PATH"; fi; \
+if [ -s "$(NVM_DIR)/nvm.sh" ]; then . "$(NVM_DIR)/nvm.sh"; fi; \
+if command -v fnm >/dev/null 2>&1; then eval "$$(fnm env 2>/dev/null)" || true; fi; \
+if [ -x "$(HOME)/.volta/bin/npm" ]; then export PATH="$(HOME)/.volta/bin:$$PATH"; fi; \
+if ! command -v npm >/dev/null 2>&1; then \
+  echo "npm not found. Install Node.js 20+ or run: make prod NPM=/full/path/to/npm"; \
+  exit 127; \
+fi
+endef
 
 help:
 	@echo "Wodoo landing page"
@@ -16,7 +31,7 @@ help:
 	@echo "  make clean     Remove the .next build folder"
 
 install:
-	npm ci
+	$(WITH_NODE); npm ci
 
 db-up:
 	docker compose up -d
@@ -25,18 +40,18 @@ db-down:
 	docker compose down
 
 dev:
-	npm run dev
+	$(WITH_NODE); npm run dev
 
 build:
-	npm run build
+	$(WITH_NODE); npm run build
 
 start:
-	npm start
+	$(WITH_NODE); npm start
 
 prod: build start
 
 lint:
-	npm run lint
+	$(WITH_NODE); npm run lint
 
 clean:
 	rm -rf .next
