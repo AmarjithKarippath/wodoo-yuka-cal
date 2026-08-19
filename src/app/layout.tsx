@@ -1,10 +1,13 @@
 import type { Metadata, Viewport } from "next";
 import { Allura, Montserrat, Pacifico, Poppins } from "next/font/google";
+import Script from "next/script";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { JsonLd } from "@/components/JsonLd";
 import { site } from "@/lib/site";
 import "./globals.css";
+
+const GA_MEASUREMENT_ID = "G-68S6SKWY4H";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -110,6 +113,18 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${poppins.variable} ${montserrat.variable} ${allura.variable} ${pacifico.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-white text-wakka-ink">
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_MEASUREMENT_ID}');
+          `}
+        </Script>
         <JsonLd />
         <Header />
         <main className="flex-1">{children}</main>
